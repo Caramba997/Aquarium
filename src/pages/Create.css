@@ -1,0 +1,80 @@
+.Create {
+  max-width: 480px;
+  margin: auto;
+}
+
+.Create__InputRow {
+  padding: 1rem 0;
+  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+}
+
+.Create__InputText, .Create__InputDate {
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius);
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.Create__SelectWrapper {
+  position: relative;
+}
+
+.Create__Select {
+  position: absolute;
+  top: 100%;
+  background-color: var(--color-background-highlight);
+  border-radius: var(--border-radius);
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  max-height: 104px;
+  overflow-y: auto;
+}
+.Create__Select[aria-hidden="true"] {
+  display: none;
+}
+
+.Create__RadioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.Create__InputRadio {
+  display: none;
+}
+
+.Create__RadioButton {
+  padding: 0.25rem 0.5rem;
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+.Create__RadioButton.selected {
+  background-color: var(--color-background-highlight);
+}
+
+.Create__Icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-dark-blue);
+}
+
+.Create__ButtonRow {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.Create__Button {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  padding: 0.5rem 2rem;
+  border-radius: var(--border-radius);
+}

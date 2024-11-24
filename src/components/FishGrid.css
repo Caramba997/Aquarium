@@ -1,0 +1,31 @@
+.FishGrid__Grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.FishGrid__Toolbar {
+  padding: 1rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 481px) {
+  .FishGrid__Grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 769px) {
+  .FishGrid__Grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1025px) {
+  .FishGrid__Grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

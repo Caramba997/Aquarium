@@ -1,0 +1,62 @@
+.FishCard {
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius-l);
+  box-shadow: var;
+}
+
+.FishCard--red {
+  background-color: var(--color-background-error);
+}
+
+.FishCard__Image {
+  aspect-ratio: 4/3;
+}
+.FishCard__Image--default {
+  padding: 1rem;
+}
+
+.FishCard__Descriptors {
+  padding: 1rem;
+}
+
+.FishCard__Name {
+  font-size: var(--text-l);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.FishCard__Icons {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+}
+
+.FishCard__Chips {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.FishCard__Chip {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  padding: 4px 8px;
+  background-color: var(--color-background-primary);
+  border-radius: var(--border-radius);
+  white-space: nowrap;
+}
+
+.FishCard__Icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-dark-blue);
+}
+
+.FishCard hr {
+  margin: 8px 0;
+  border-color: var(--color-border);
+}

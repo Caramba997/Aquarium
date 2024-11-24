@@ -1,13 +1,60 @@
+:root {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f1f1f1;
+  --color-background-highlight: #d8ddf8;
+  --color-background-error: #f8bcbc;
+
+  --color-text-primary: #252525;
+  --color-text-secondary: #424242;
+  --color-text-light: #ffffff;
+
+  --color-primary: #4c3aee;
+  --color-secondary: #46afd8;
+
+  --color-shadow: #0000001e;
+
+  --color-border: #b6b6b6;
+
+  --color-overlay: #00000073;
+
+  --color-dark-blue: #201b66;
+
+  --text-s: 14px;
+  --text-m: 16px;
+  --text-l: 20px;
+  --text-xl: 24px;
+
+  --shadow: 0px 0px 4px 2px var(--color-shadow);
+
+  --border-radius: 4px;
+  --border-radius-l: 8px;
+
+  /*
+    Default media breakpoints
+
+    Mobile: 0px - 480px
+    Tablet: 481px - 768px
+    Laptop: 769px - 1024px
+    Desktop: 1025px - 1200px
+    Large: 1201px - ...
+  */
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, 'Arial', sans-serif;
+  color: var(--color-text-primary);
+  font-size: 16px;
+  position: relative;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button {
+  padding: unset;
+  border: none;
+  background: unset;
 }
