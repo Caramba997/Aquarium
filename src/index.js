@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import './normalize.css';
-import Layout from "./Layout";
-import Home from './pages/Home';
-import Fish from './pages/Fish';
-import Create from './pages/Create';
-import reportWebVitals from './reportWebVitals';
+import Layout from "./Layout.js";
+import Home from './pages/Home.js';
+import Fish from './pages/Fish.js';
+import Create from './pages/Create.js';
+import reportWebVitals from './reportWebVitals.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {

@@ -1,9 +1,9 @@
 import { Outlet, Link } from "react-router-dom";
 import './Layout.css';
 import { ReactComponent as BurgerIcon } from './icons/burger.svg';
-import Sidebar from "./components/Sidebar";
-import Overlay from "./components/Overlay";
-import Events from "./events";
+import Sidebar from "./components/Sidebar.js";
+import Overlay from "./components/Overlay.js";
+import Events from "./events.js";
 
 const Layout = () => {
 

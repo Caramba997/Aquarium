@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const itemSchema = new mongoose.Schema({
   name: String,
@@ -9,12 +9,9 @@ const itemSchema = new mongoose.Schema({
   sex: String,
   colors: [String],
   characteristics: [String],
-  preview_image: {
-    url: String
-  },
-  photos: [{
-    url: String
-  }]
+  image: {
+    name: String
+  }
 });
 
-module.exports = mongoose.model("fish", itemSchema);
+export default mongoose.model("fish", itemSchema);

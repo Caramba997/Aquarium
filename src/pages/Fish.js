@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import Api from '../api';
+import Api from '../api.js';
 import './Home.css';
-import FishGrid from '../components/FishGrid';
+import FishGrid from '../components/FishGrid.js';
 
 function Home() {
   // const [fish, setFish] = useState([]);

@@ -14,7 +14,7 @@ function FishCard(props) {
   return (
     <Link to={{ pathname: `/fish/${fish._id}` }} className={`FishCard${fish.date_death ? ' FishCard--red' : ''}`}>
       <div className="FishCard__ImageWrapper">
-        <img className={`FishCard__Image FishCard__Image--${fish.image ? 'custom' : 'default'}`} src={fish.image || PlaceholderImage} alt={`Foto von ${fish.name}`}/>
+        <img className={`FishCard__Image FishCard__Image--${fish.image ? 'custom' : 'default'}`} src={fish.image ? `${process.env.REACT_APP_CLOUDFRONT_URL}/${fish.image.name}` : PlaceholderImage} alt={`Foto von ${fish.name}`}/>
       </div>
       <div className="FishCard__Descriptors">
         <div className="FishCard__Name">

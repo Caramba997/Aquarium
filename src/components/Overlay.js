@@ -1,6 +1,6 @@
 import './Overlay.css';
 import { useEffect, useState } from 'react';
-import Events from '../events';
+import Events from '../events.js';
 
 function Overlay() {
 

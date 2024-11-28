@@ -1,7 +1,7 @@
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Events from '../events';
+import Events from '../events.js';
 
 function Sidebar() {
 

@@ -5,7 +5,7 @@ class Api {
   constructor() {
     this.axiosInstance = axios.create({
       baseURL: 'http://localhost:5000/api/',
-      timeout: 1000,
+      timeout: 10000,
     });
   }
 
@@ -21,6 +21,11 @@ class Api {
 
   async getSpecies() {
     const response = await this.axiosInstance.get("species");
+    return response.data;
+  }
+
+  async uploadImage(data) {
+    const response = await this.axiosInstance.post("upload", data);
     return response.data;
   }
 

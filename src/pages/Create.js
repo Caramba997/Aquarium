@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate  } from "react-router-dom";
-import Api from '../api';
+import Api from '../api.js';
 import './Create.css';
 import { ReactComponent as MaleIcon } from '../icons/male.svg';
 import { ReactComponent as FemaleIcon } from '../icons/female.svg';
@@ -12,9 +12,10 @@ function Home() {
   const [species, setSpecies] = useState('');
   const [colors, setColors] = useState('');
   const [characteristics, setCharacteristics] = useState('');
-  const [sex, setSex] = useState('');
+  const [sex, setSex] = useState('male');
   const [allSpecies, setAllSpecies] = useState([]);
   const [isSelectVisible, setIsSelectVisible] = useState(false);
+  const [image, setImage] = useState('');
 
   const api = new Api();
   const navigate = useNavigate();
@@ -68,28 +69,51 @@ function Home() {
     setSex(event.target.value);
   };
 
-  const save = async (e) => {
-    const form = e.target.closest('form');
+  const handleize = function (string) {
+    if (!string || !typeof string === 'string' || !string instanceof String) {
+      console.warn('Could not handleize parameter', string);
+      return '';
+    }
+    let result = string.toLowerCase();
+    result = result.replace('ä', 'ae').replace('ö', 'oe').replace('ü', 'ue').replace('ß', 'ss');
+    result = result.replace(/^[^a-zA-Z0-9]|[^a-zA-Z0-9]$/g, '');
+    result = result.replace(/[^a-zA-Z0-9]+/g, '-');
+    return result;
+};
+
+  const save = async () => {
+    const form = document.querySelector('.Create__Form');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
     const formData = new FormData(form);
-    const fish = {};
+    const fixedFormData = new FormData();
     formData.forEach((value, key) => {
       if (['colors', 'characteristics'].includes(key)) {
-        if (value) fish[key] = value.split(',').map(entry => entry.trim().toLowerCase());
-      } else if (key === 'date_since') {
-        fish[key] = new Date(value);
+        if (value) fixedFormData.append(key, value.split(',').map(entry => entry.trim().toLowerCase()));
+      } else if (key === 'image') {
+        fixedFormData.append(key, value, `${handleize(formData.get('name'))}_${Date.now()}.${value.name.split('.').pop()}`);
       } else {
-        fish[key] = value;
+        fixedFormData.append(key, value);
       }
     });
-    console.log(fish);
-    const response = await api.saveFish(fish);
-    console.log(response);
+    const response = await api.saveFish(fixedFormData);
     navigate(`/fish/${response._id}`);
   };
+
+  const showImage = async (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImage(e.target.result);
+    };
+    reader.onerror = (err) => {
+        console.error("Error reading file:", err);
+        alert("An error occurred while reading the file.");
+    };
+    reader.readAsDataURL(file);
+  }
 
   return (
     <div className="Create">
@@ -142,10 +166,20 @@ function Home() {
           <label className="Create__InputLabel" htmlFor="description">Beschreibung (optional)</label>
           <input className="Create__InputText" type="text" name="description" value={description} onChange={handleDescriptionChange}></input>
         </div>
-        <div className="Create__ButtonRow">
-          <button type="button" className="Create__Button" onClick={save}>Speichern</button>
+        <div className="Create__InputRow">
+          <label className="Create__InputLabel" htmlFor="image">Bild (optional)</label>
+          <div>
+            <label className="Create__FileInputLabel">
+              Bild auswählen
+              <input name="image" type="file" onChange={showImage} accept="image/*" />
+            </label>
+            { image ? (<img className="Create__Image" src={ image } alt="Bild des Tieres" />) : null }
+          </div>
         </div>
       </form>
+      <div className="Create__ButtonRow">
+        <button type="button" className="Create__Button" onClick={save}>Speichern</button>
+      </div>
     </div>
   );
 }

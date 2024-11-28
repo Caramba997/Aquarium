@@ -1,21 +1,23 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import parseFormAndUploadFiles from './formparser.js';
+import mongoose from 'mongoose';
+
 const app = express();
-const PORT = process.env.EXPRESS_PORT || 5000;
+const PORT = process.env.API_PORT || 5000;
 dotenv.config();
 app.use(cors());
 app.use(express.json());
 
 app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
-const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGODB_URL, {
   dbName: 'aquarium',
 });
 
-const Fish = require("./models/Fish");
-const Species = require("./models/Species");
+import Fish from './models/Fish.js';
+import Species from './models/Species.js';
 
 app.get("/api/fish", async (req, res) => {
   try {
@@ -29,7 +31,14 @@ app.get("/api/fish", async (req, res) => {
 
 app.post("/api/fish", async (req, res) => {
   try {
-    const fish = new Fish(req.body);
+    const parsedForm = await parseFormAndUploadFiles(req);
+    const fishData = {
+      ...parsedForm.fields,
+      image: parsedForm.image ? {
+        name: parsedForm.image.Key
+      } : null
+    };
+    const fish = new Fish(fishData);
     const savedFish = await fish.save();
     res.json(savedFish);
   } catch (error) {

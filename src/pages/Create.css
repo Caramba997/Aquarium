@@ -3,12 +3,19 @@
   margin: auto;
 }
 
+.Create__Form {
+  padding: 1rem 0;
+}
+
 .Create__InputRow {
   padding: 1rem 0;
   display: flex;
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
+}
+.Create__InputRow input[type="file"] {
+  display: none;
 }
 
 .Create__InputText, .Create__InputDate {
@@ -76,5 +83,19 @@
   background-color: var(--color-primary);
   color: var(--color-text-light);
   padding: 0.5rem 2rem;
+  border-radius: var(--border-radius);
+}
+
+.Create__Image {
+  width: 100%;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  object-fit: contain;
+}
+
+.Create__FileInputLabel {
+  background-color: var(--color-secondary);
+  color: var(--color-text-light);
+  padding: 0.25rem 1rem;
   border-radius: var(--border-radius);
 }
