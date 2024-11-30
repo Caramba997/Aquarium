@@ -21,8 +21,15 @@ import Species from './models/Species.js';
 
 app.get("/api/fish", async (req, res) => {
   try {
-    const fish = await Fish.find();
-    res.json(fish);
+    const id = req.query.id;
+    let fish;
+    if (id) {
+      fish = await Fish.findById(id);
+    }
+    else {
+      fish = await Fish.find();
+    }
+    return res.json(fish);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
@@ -36,11 +43,39 @@ app.post("/api/fish", async (req, res) => {
       ...parsedForm.fields,
       image: parsedForm.image ? {
         name: parsedForm.image.Key
-      } : null
+      } : ''
     };
-    const fish = new Fish(fishData);
-    const savedFish = await fish.save();
-    res.json(savedFish);
+    let id = null;
+    if (fishData.id) {
+      id = fishData.id;
+      delete fishData.id;
+      if (fishData.image === '') {
+        delete fishData.image;
+      }
+    }
+    fishData.colors = fishData.colors ? fishData.colors.split(',').map(entry => entry.trim().toLowerCase()) : [];
+    fishData.characteristics = fishData.characteristics ? fishData.characteristics.split(',').map(entry => entry.trim().toLowerCase()) : [];
+    if (id !== null) {
+      const savedFish = await Fish.findByIdAndUpdate(id, fishData, { new: true });
+      res.json(savedFish);
+    }
+    else {
+      const fish = new Fish(fishData);
+      const savedFish = await fish.save();
+      res.json(savedFish);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+app.delete("/api/fish", async (req, res) => {
+  try {
+    const id = req.query.id;
+    const deleteResult = await Fish.deleteOne({ _id: id });
+    console.log(deleteResult);
+    res.json({ success: true});
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");

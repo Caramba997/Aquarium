@@ -79,7 +79,7 @@ function Home() {
     result = result.replace(/^[^a-zA-Z0-9]|[^a-zA-Z0-9]$/g, '');
     result = result.replace(/[^a-zA-Z0-9]+/g, '-');
     return result;
-};
+  };
 
   const save = async () => {
     const form = document.querySelector('.Create__Form');
@@ -90,9 +90,8 @@ function Home() {
     const formData = new FormData(form);
     const fixedFormData = new FormData();
     formData.forEach((value, key) => {
-      if (['colors', 'characteristics'].includes(key)) {
-        if (value) fixedFormData.append(key, value.split(',').map(entry => entry.trim().toLowerCase()));
-      } else if (key === 'image') {
+      if (key === 'image') {
+        if (!value.size) return;
         fixedFormData.append(key, value, `${handleize(formData.get('name'))}_${Date.now()}.${value.name.split('.').pop()}`);
       } else {
         fixedFormData.append(key, value);
@@ -109,15 +108,15 @@ function Home() {
       setImage(e.target.result);
     };
     reader.onerror = (err) => {
-        console.error("Error reading file:", err);
-        alert("An error occurred while reading the file.");
+      console.error("Error reading file:", err);
+      alert("An error occurred while reading the file.");
     };
     reader.readAsDataURL(file);
   }
 
   return (
     <div className="Create">
-      <h1 className="PageTitle">Neuen Fisch anlegen</h1>
+      <h1 className="PageTitle">Neues Tier anlegen</h1>
       <form className="Create__Form">
         <div className="Create__InputRow">
           <label className="Create__InputLabel" htmlFor="name">Name</label>
@@ -151,12 +150,12 @@ function Home() {
           </div>
         </div>
         <div className="Create__InputRow">
-          <label className="Create__InputLabel" htmlFor="date_since">Im Aquarium seit</label>
-          <input className="Create__InputDate" type="date" name="date_since" value={dateSince} onChange={handleDateSinceChange} required></input>
-        </div>
-        <div className="Create__InputRow">
           <label className="Create__InputLabel" htmlFor="colors">Farben</label>
           <input className="Create__InputDate" type="string" name="colors" value={colors} onChange={handleColorsChange} required></input>
+        </div>
+        <div className="Create__InputRow">
+          <label className="Create__InputLabel" htmlFor="date_since">Im Aquarium seit</label>
+          <input className="Create__InputDate" type="date" name="date_since" value={dateSince} onChange={handleDateSinceChange} required></input>
         </div>
         <div className="Create__InputRow">
           <label className="Create__InputLabel" htmlFor="colors">Eigenschaften (optional)</label>

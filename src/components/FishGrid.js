@@ -15,6 +15,8 @@ function FishGrid() {
     })();
   }, []);
 
+  // TODO: Implement filter and sort functionality
+
   return (
     <div className="FishGrid">
       <div className="FishGrid__Toolbar">

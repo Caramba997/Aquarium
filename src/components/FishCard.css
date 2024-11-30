@@ -2,6 +2,7 @@
   background-color: var(--color-background-secondary);
   border-radius: var(--border-radius-l);
   box-shadow: var;
+  overflow: hidden;
 }
 
 .FishCard--red {

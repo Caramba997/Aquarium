@@ -35,14 +35,14 @@ const parseFormAndUploadFiles = async (req) => {
       }
     }
 
-    form.parse(req, (err, fields, files) => {
-        if (err) {
-          next(err);
-          return;
-        }
-        status.end = true;
-        status.fields = fields;
-        checkResolve();
+    form.parse(req, (error, fields, files) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      status.end = true;
+      status.fields = fields;
+      checkResolve();
     });
 
     form.on('error', error => {

@@ -1,0 +1,23 @@
+.Edit__Dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-background-secondary);
+  padding: 2rem;
+  border-radius: var(--border-radius-l);
+  box-shadow: var(--shadow);
+  z-index: 100;
+}
+
+.Edit__Button--delete {
+  background-color: var(--color-background-error);
+}
+
+.Edit__ButtonRow--delete {
+  margin-top: 2rem;
+}
+
+.Edit__Dialog[aria-hidden="true"] {
+  display: none;
+}

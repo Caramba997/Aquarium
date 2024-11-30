@@ -5,11 +5,12 @@
 }
 
 .FishGrid__Toolbar {
-  padding: 1rem 0;
-  width: 100%;
-  display: flex;
+  display: none;
+  /* display: flex; */
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 0;
+  width: 100%;
 }
 
 @media (min-width: 481px) {
