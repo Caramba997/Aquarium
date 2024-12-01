@@ -1,14 +1,27 @@
 import express from 'express';
+import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import parseFormAndUploadFiles from './formparser.js';
 import mongoose from 'mongoose';
+import Fish from './models/Fish.js';
+import Species from './models/Species.js';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const reactBuild = path.join(__dirname, './frontend/build');
+const DEV = process.argv.some(arg => arg === '--dev');
+
+dotenv.config();
+
+const PORT = process.env.PORT;
 
 const app = express();
-const PORT = process.env.API_PORT || 5000;
-dotenv.config();
+
 app.use(cors());
 app.use(express.json());
+if (!DEV) app.use(express.static(reactBuild));
 
 app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
@@ -16,8 +29,7 @@ mongoose.connect(process.env.MONGODB_URL, {
   dbName: 'aquarium',
 });
 
-import Fish from './models/Fish.js';
-import Species from './models/Species.js';
+/* API routes */
 
 app.get("/api/fish", async (req, res) => {
   try {
@@ -91,3 +103,11 @@ app.get("/api/species", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+/* Frontend routes */
+
+if (!DEV) {
+  app.get('*', async (req, res) => {
+    res.sendFile(path.join(reactBuild, 'index.html'));
+  });
+}

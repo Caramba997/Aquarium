@@ -1,6 +1,39 @@
-# Getting Started with Create React App
+# Aquarium
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created to keep track of the animals in an aquarium. It allows to save info about the existing animals including images.
+
+## Architecture
+
+- create-react-app
+- Express.js API
+
+## Environment variables
+
+### Main directory
+
+To run this project, a .env file with the following env variables needs to be created in the top level directory:
+
+- MONGODB_URL="mongodb+srv://<db_name>.jx9ti.mongodb.net/?retryWrites=true&w=majority&appName=<cluster_name>"
+- AWS_PUBLIC_KEY
+- AWS_PRIVATE_KEY
+- S3_REGION
+- S3_BUCKET
+- API_PORT=5000
+
+### Main directory
+
+In the frontend directory, a .env file with the following variable is needed:
+
+- REACT_APP_CLOUDFRONT_URL=<cloudfront_cdn_url>
+
+For development, a dev.env file with the following variables is needed:
+
+- REACT_APP_CLOUDFRONT_URL=<cloudfront_cdn_url>
+- REACT_APP_API_URL=http://localhost:5000
+
+## Development
+
+While in production the express server also serves the react app build, for development you might want to use a standalone server for react to enable live reloads etc. For this, startup the API from the main directory and the frontend from the frontend directory.
 
 ## Available Scripts
 
@@ -39,7 +72,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Create-react-app documentation
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 

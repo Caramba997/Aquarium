@@ -4,8 +4,8 @@ class Api {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: `${process.env.REACT_APP_API_URL}/api/`,
-      timeout: 10000,
+      baseURL: `${process.env.REACT_APP_API_URL || ''}/api/`,
+      timeout: 30000,
     });
   }
 
