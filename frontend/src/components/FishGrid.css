@@ -5,12 +5,90 @@
 }
 
 .FishGrid__Toolbar {
-  display: none;
-  /* display: flex; */
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
   width: 100%;
+}
+
+.FishGrid__ToolbarItem {
+  position: relative;
+}
+
+.FishGrid__ToolbarButton {
+  display: flex;
+  flex-direction: column;
+}
+
+.FishGrid__ToolbarItem--right .FishGrid__ToolbarButton {
+  align-items: flex-end;
+}
+
+.FishGrid__ToolbarItem--left .FishGrid__ToolbarButton {
+  align-items: flex-start;
+}
+
+.FishGrid__ToolbarButtonSub {
+  font-size: var(--text-s);
+  color: var(--color-text-secondary);
+}
+
+.FishGrid__ToolbarDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  background-color: var(--color-background-highlight);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  z-index: 20;
+  padding: 1.5rem;
+  width: fit-content;
+}
+
+.FishGrid__ToolbarDropdown[aria-hidden="true"] {
+  display: none;
+}
+
+.FishGrid__ToolbarItem--right .FishGrid__ToolbarDropdown {
+  right: -8px;
+}
+
+.FishGrid__ToolbarItem--left .FishGrid__ToolbarDropdown {
+  left: -8px;
+}
+
+.FishGrid__ToolbarDropdown::before {
+  content: "";
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--color-background-highlight);
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -12px;
+}
+
+.FishGrid__ToolbarItem--right .FishGrid__ToolbarDropdown::before {
+  right: 16px;
+}
+
+.FishGrid__ToolbarItem--left .FishGrid__ToolbarDropdown::before {
+  left: 16px;
+}
+
+.FishGrid__ToolbarDropdownContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.FishGrid__ToolbarDropdownItem {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 @media (min-width: 481px) {
