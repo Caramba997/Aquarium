@@ -80,11 +80,11 @@ function FishGrid() {
     if (sort === 'alphabetical') {
       results.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sort === 'since_up') {
-      results.sort((a, b) => new Date(a.date_since).getTime() - new Date(b.date_since).getTime());
+      results.sort((a, b) => a.date_since === b.date_since ? a.name.localeCompare(b.name) : new Date(a.date_since).getTime() - new Date(b.date_since).getTime());
     } else if (sort === 'since_down') {
-      results.sort((a, b) => new Date(b.date_since).getTime() - new Date(a.date_since).getTime());
+      results.sort((a, b) => a.date_since === b.date_since ? a.name.localeCompare(b.name) : new Date(b.date_since).getTime() - new Date(a.date_since).getTime());
     } else if (sort === 'species') {
-      results.sort((a, b) => a.species.localeCompare(b.species));
+      results.sort((a, b) => a.species === b.species ? a.name.localeCompare(b.name) : a.species.localeCompare(b.species));
     }
     return results;
   };

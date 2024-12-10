@@ -111,7 +111,7 @@ function Home() {
             <div>{formatDate(fish.date_since)}</div>
           </div>
         </div>
-        { deathHtml}
+        { deathHtml }
       </div>
     </div>
   );

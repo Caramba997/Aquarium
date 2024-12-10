@@ -50,11 +50,14 @@ function Sidebar() {
       </div>
       <div className='Sidebar__Content'>
         <div className='Navigation'>
+          <Link to={{ pathname: '/create' }} className="Navigation__Item" onClick={close}>
+            + Neuer Fisch
+          </Link>
           <Link to={{ pathname: '/' }} className="Navigation__Item" onClick={close}>
             Übersicht
           </Link>
-          <Link to={{ pathname: '/create' }} className="Navigation__Item" onClick={close}>
-            + Neuer Fisch
+          <Link to={{ pathname: '/stats' }} className="Navigation__Item" onClick={close}>
+            Statistiken
           </Link>
         </div>
       </div>

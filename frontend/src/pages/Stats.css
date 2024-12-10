@@ -1,0 +1,52 @@
+.Stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Stats__Block {
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius-l);
+}
+
+.Stats__BlockHeader {
+  margin-bottom: 1rem;
+}
+
+.Stats__BlockTitle {
+  font-size: var(--text-l);
+  margin-bottom: 1rem;
+}
+
+.Stats__BlockSubTitle {
+  margin-left: 0.5rem;
+  font-size: var(--text-m);
+  color: var(--color-text-secondary);
+}
+
+.Stats__BlockHeaderRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.Stats__Select {
+  padding: 0.25rem 0.5rem;
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+}
+
+.Stats__ResultRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.Stats__ResultName {
+  flex: 50% 0 0;
+}
