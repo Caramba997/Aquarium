@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate  } from "react-router-dom";
-import Api from '../api.js';
+import useApi from '../api.js';
 import './Create.css';
 import { ReactComponent as MaleIcon } from '../icons/male.svg';
 import { ReactComponent as FemaleIcon } from '../icons/female.svg';
@@ -17,13 +17,13 @@ function Home() {
   const [isSelectVisible, setIsSelectVisible] = useState(false);
   const [image, setImage] = useState('');
 
-  const api = new Api();
+  const api = useApi();
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      const speciesData = await api.getSpecies();
-      setAllSpecies(speciesData.map(entry => entry.name));
+      const fishData = await api.getFish();
+      setAllSpecies([...new Set(fishData.map(fish => fish.species))]);
     })();
   }, []);
 

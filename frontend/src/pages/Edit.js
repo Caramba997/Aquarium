@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router";
 import { useNavigate  } from "react-router-dom";
-import Api from '../api.js';
+import useApi from '../api.js';
 import Events from '../events.js';
 import './Edit.css';
 import './Create.css';
@@ -25,7 +25,7 @@ function Edit() {
   const [image, setImage] = useState('');
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
 
-  const api = new Api();
+  const api = useApi();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,8 +37,8 @@ function Edit() {
       fishData.date_death = fishData.date_death ? formatDate(fishData.date_death) : '';
       fishData = { ...fish, ...fishData };
       setFish(fishData);
-      const speciesData = await api.getSpecies();
-      setAllSpecies(speciesData.map(entry => entry.name));
+      const allFishData = await api.getFish();
+      setAllSpecies([...new Set(allFishData.map(fish => fish.species))]);
     })();
   }, []);
 

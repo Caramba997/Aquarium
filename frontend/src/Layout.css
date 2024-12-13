@@ -19,6 +19,30 @@
   align-items: center;
 }
 
+.Header__Account {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.Header__AccountButton {
+  padding: 6px;
+  position: relative;
+}
+
+.Header__AccountInitial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+}
+
+.Header__AccountButton .Header__Icon {
+  width: 28px;
+  height: 28px;
+}
+
 .Header__Icon {
   display: block;
   width: 40px;

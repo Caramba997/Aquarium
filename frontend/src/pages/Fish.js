@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router";
-import Api from '../api.js';
+import useApi from '../api.js';
 import { useNavigate  } from "react-router-dom";
 import './Fish.css';
 import PlaceholderImage from '../images/fish_placeholder.png';
@@ -12,12 +12,15 @@ import { ReactComponent as StarsIcon } from '../icons/stars.svg';
 import { ReactComponent as ColorsIcon } from '../icons/color_palette.svg';
 import { ReactComponent as MaleIcon } from '../icons/male.svg';
 import { ReactComponent as FemaleIcon } from '../icons/female.svg';
+import { useContext } from 'react';
+import { UserContext } from '../context.js';
 
 function Home() {
+  const { username } = useContext(UserContext);
   const { id } = useParams();
   const [fish, setFish] = useState({});
 
-  const api = new Api();
+  const api = useApi();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,9 +64,11 @@ function Home() {
       <div className="Fish__Column">
         <h2 className="Fish__Name">
           {fish.name || 'Name'}
-          <button onClick={edit}>
-            <PencilIcon className="Fish__Icon" />
-          </button>
+          { username ? (
+            <button onClick={edit}>
+              <PencilIcon className="Fish__Icon" />
+            </button>
+          ) : null}
         </h2>
         <div className="Fish__Description">{fish.description}</div>
         <div className="Fish__PropertyRow">

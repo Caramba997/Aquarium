@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Api from '../api.js';
+import useApi from '../api.js';
 import Events from '../events.js';
 import './FishGrid.css';
 import FishCard from './FishCard.js';
@@ -16,14 +16,13 @@ function FishGrid() {
   const [filterAliveTitle, setFilterAliveTitle] = useState('Aktueller Bestand');
   const [filtersVisible, setFiltersVisible] = useState(false);
 
-  const api = new Api();
+  const api = useApi();
 
   useEffect(() => {
     (async () => {
       const fishData = await api.getFish();
       setFish(fishData);
-      const speciesData = await api.getSpecies();
-      setAllSpecies(speciesData.map(entry => entry.name));
+      setAllSpecies([...new Set(fishData.map(fish => fish.species))]);
     })();
     
     Events.subscribe('overlay:clicked', () => {

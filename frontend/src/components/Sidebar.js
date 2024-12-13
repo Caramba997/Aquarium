@@ -2,9 +2,12 @@ import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Events from '../events.js';
+import { useContext } from 'react';
+import { UserContext } from '../context.js';
 
 function Sidebar() {
 
+  const { username } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const open = () => {
@@ -50,9 +53,11 @@ function Sidebar() {
       </div>
       <div className='Sidebar__Content'>
         <div className='Navigation'>
-          <Link to={{ pathname: '/create' }} className="Navigation__Item" onClick={close}>
-            + Neuer Fisch
-          </Link>
+          { username ? (
+            <Link to={{ pathname: '/create' }} className="Navigation__Item" onClick={close}>
+              + Neuer Fisch
+            </Link>
+          ) : null}
           <Link to={{ pathname: '/' }} className="Navigation__Item" onClick={close}>
             Übersicht
           </Link>

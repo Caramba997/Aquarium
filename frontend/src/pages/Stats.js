@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import Api from '../api.js';
-import { useNavigate  } from "react-router-dom";
+import useApi from '../api.js';
 import './Stats.css';
 
 function Stats() {
@@ -10,8 +9,7 @@ function Stats() {
 
   const onlyAliveGroups = ['species', 'sex', 'colors', 'characteristics'];
 
-  const api = new Api();
-  const navigate = useNavigate();
+  const api = useApi();
 
   useEffect(() => {
     (async () => {
