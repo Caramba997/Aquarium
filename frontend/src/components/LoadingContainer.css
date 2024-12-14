@@ -1,0 +1,146 @@
+.LoadingContainer {
+  position: relative;
+}
+
+.LoadingContainer.is-loading {
+  overflow: hidden;
+}
+
+.LoadingContainer--fullHeight.is-loading {
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.LoadingContainer.is-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Spinner */
+
+.LoadingContainer--spinner.is-loading::before {
+  background-color: var(--color-overlay-light);
+}
+
+.LoadingContainer--spinner.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-text-secondary);
+  border-bottom-color: transparent;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fish */
+
+.LoadingContainer--fish.is-loading::before {
+  background-color: var(--color-background-primary);
+}
+
+.LoadingContainer__FishBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.LoadingContainer:not(.is-loading) .LoadingContainer__Icon {
+  display: none;
+}
+
+.LoadingContainer__Icon {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+}
+
+.LoadingContainer__Icon--fish {
+  top: 0;
+  left: 0;
+  color: var(--color-text-secondary);
+}
+
+.LoadingContainer__Icon--waveOne, .LoadingContainer__Icon--waveTwo {
+  left: 4px;
+}
+
+.LoadingContainer__Icon--waveOne {
+  top: 8px;
+  color: var(--color-primary);
+  animation: waveOne 6s linear infinite;
+}
+
+.LoadingContainer__Icon--waveTwo {
+  top: 16px;
+  color: var(--color-secondary);
+  animation: -2s waveTwo 3s linear infinite;
+}
+
+@keyframes waveOne {
+  0% {
+    left: 100%;
+    top: 8px;
+  }
+  25% {
+    left: 50%;
+    top: 12px;
+  }
+  50% {
+    left: 0;
+    top: 8px;
+  }
+  75% {
+    left: -50%;
+    top: 4px;
+  }
+  100% {
+    left: -100%;
+    top: 8px;
+  }
+}
+
+@keyframes waveTwo {
+  0% {
+    left: 100%;
+    top: 16px;
+  }
+  25% {
+    left: 50%;
+    top: 12px;
+  }
+  50% {
+    left: 0;
+    top: 16px;
+  }
+  75% {
+    left: -50%;
+    top: 16px;
+  }
+  100% {
+    left: -100%;
+    top: 20px;
+  }
+}

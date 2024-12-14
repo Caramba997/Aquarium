@@ -30,6 +30,7 @@ function Edit() {
 
   useEffect(() => {
     (async () => {
+      Events.push('pageState', 'page:loading');
       let fishData = await api.getFish(id);
       if (fishData.colors) fishData.colors = fishData.colors.join(',');
       if (fishData.characteristics) fishData.characteristics = fishData.characteristics.join(',');
@@ -39,6 +40,7 @@ function Edit() {
       setFish(fishData);
       const allFishData = await api.getFish();
       setAllSpecies([...new Set(allFishData.map(fish => fish.species))]);
+      Events.push('pageState', 'page:ready');
     })();
   }, []);
 

@@ -20,9 +20,11 @@ function FishGrid() {
 
   useEffect(() => {
     (async () => {
+      Events.push('pageState', 'page:loading');
       const fishData = await api.getFish();
       setFish(fishData);
       setAllSpecies([...new Set(fishData.map(fish => fish.species))]);
+      Events.push('pageState', 'page:ready');
     })();
     
     Events.subscribe('overlay:clicked', () => {

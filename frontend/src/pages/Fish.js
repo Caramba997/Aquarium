@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router";
 import useApi from '../api.js';
+import Events from '../events.js';
 import { useNavigate  } from "react-router-dom";
 import './Fish.css';
 import PlaceholderImage from '../images/fish_placeholder.png';
@@ -25,8 +26,10 @@ function Home() {
 
   useEffect(() => {
     (async () => {
+      Events.push('pageState', 'page:loading');
       const fishData = await api.getFish(id);
       setFish(fishData);
+      Events.push('pageState', 'page:ready');
     })();
   }, []);
 

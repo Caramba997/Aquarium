@@ -40,7 +40,7 @@
   background-color: var(--color-background-highlight);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
-  z-index: 20;
+  z-index: 40;
   padding: 1.5rem;
   width: fit-content;
 }

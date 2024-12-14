@@ -12,6 +12,7 @@
   background-color: var(--color-background-highlight);
   -webkit-box-shadow: var(--shadow);
   box-shadow: var(--shadow);
+  z-index: 20;
 }
 
 .Header__Burger {
@@ -84,4 +85,5 @@
   background-color: var(--color-background-highlight);
   -webkit-box-shadow: var(--shadow);
   box-shadow: var(--shadow);
+  z-index: 20;
 }

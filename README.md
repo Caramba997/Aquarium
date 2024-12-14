@@ -35,17 +35,17 @@ For development, a dev.env file with the following variables is needed:
 
 While in production the express server also serves the react app build, for development you might want to use a standalone server for react to enable live reloads etc. For this, startup the API from the main directory and the frontend from the frontend directory.
 
+## Deploy to Heroku
+
+This project is hosted as an Heroku app. To update the version there, make sure to push the latest changes to the Git repository and then run `git push heroku master`. This will push the files to the remote branch on Heroku, build the app and start it.
+
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Starts the production version of the app using the built version of the react frontend. [http://localhost:3000](http://localhost:3000)
 
 ### `npm test`
 

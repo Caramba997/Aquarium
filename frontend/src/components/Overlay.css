@@ -7,7 +7,7 @@
   background-color: var(--color-overlay);
   visibility: hidden;
   opacity: 0;
-  z-index: 10;
+  z-index: 30;
   transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 #Overlay.is-visible {

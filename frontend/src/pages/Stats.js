@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import useApi from '../api.js';
+import Events from '../events.js';
 import './Stats.css';
 
 function Stats() {
@@ -13,9 +14,11 @@ function Stats() {
 
   useEffect(() => {
     (async () => {
+      Events.push('pageState', 'page:loading');
       const fishData = await api.getFish();
       setFish(fishData);
       calcCountResults('alive', fishData);
+      Events.push('pageState', 'page:ready');
     })();
   }, []);
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate  } from "react-router-dom";
 import useApi from '../api.js';
+import Events from '../events.js';
 import './Create.css';
 import { ReactComponent as MaleIcon } from '../icons/male.svg';
 import { ReactComponent as FemaleIcon } from '../icons/female.svg';
@@ -16,14 +17,17 @@ function Home() {
   const [allSpecies, setAllSpecies] = useState([]);
   const [isSelectVisible, setIsSelectVisible] = useState(false);
   const [image, setImage] = useState('');
+  const [saveIsLoading, setSaveIsLoading] = useState(false);
 
   const api = useApi();
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
+      Events.push('pageState', 'page:loading');
       const fishData = await api.getFish();
       setAllSpecies([...new Set(fishData.map(fish => fish.species))]);
+      Events.push('pageState', 'page:ready');
     })();
   }, []);
 
@@ -87,6 +91,7 @@ function Home() {
       form.reportValidity();
       return;
     }
+    setSaveIsLoading(true);
     const formData = new FormData(form);
     const fixedFormData = new FormData();
     formData.forEach((value, key) => {
@@ -97,8 +102,14 @@ function Home() {
         fixedFormData.append(key, value);
       }
     });
-    const response = await api.saveFish(fixedFormData);
-    navigate(`/fish/${response._id}`);
+    try {
+      const response = await api.saveFish(fixedFormData);
+      navigate(`/fish/${response._id}`);
+    }
+    catch (err) {
+      console.error(err);
+      setSaveIsLoading(false);
+    };
   };
 
   const showImage = async (e) => {

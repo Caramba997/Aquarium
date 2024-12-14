@@ -1,4 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import './Layout.css';
 import { ReactComponent as BurgerIcon } from './icons/burger.svg';
 import { ReactComponent as AccountIcon } from './icons/account.svg';
@@ -8,8 +9,28 @@ import Overlay from "./components/Overlay.js";
 import Events from "./events.js";
 import { useContext } from 'react';
 import { UserContext } from './context.js';
+import LoadingContainer from "./components/LoadingContainer.js";
 
 const Layout = () => {
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const processPageStateEvent = event => {
+      if (event.name === 'page:loading') {
+        setIsLoading(true);
+      }
+      else if (event.name === 'page:ready') {
+        setIsLoading(false);
+      }
+    };
+    const previousEvents = Events.listen('pageState', event => {
+      processPageStateEvent(event);
+    });
+    for (const event of previousEvents) {
+      processPageStateEvent(event);
+    }
+  }, []);
 
   const { username } = useContext(UserContext);
 
@@ -50,9 +71,11 @@ const Layout = () => {
 
       <Overlay />
 
-      <div id="Page">
-        <Outlet />
-      </div>
+      <LoadingContainer type="fish" isLoading={isLoading} fullHeight={true}>
+        <div id="Page">
+          <Outlet />
+        </div>
+      </LoadingContainer>
 
       <footer id="Footer">
         <div>© Finn Carstensen 2024</div>
