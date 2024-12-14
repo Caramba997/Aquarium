@@ -8,14 +8,14 @@ function useApi() {
   class Api {
   
     constructor() {
+      this.token = localStorage.getItem('token');
       this.axiosInstance = axios.create({
         baseURL: `${process.env.REACT_APP_API_URL || '/'}`,
         timeout: 30000,
         headers: {
-          'token': this.token
+          'X-Token': this.token
         }
       });
-      this.token = localStorage.getItem('token');
     }
   
     verifyUser(err) {

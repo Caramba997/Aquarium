@@ -118,8 +118,13 @@ function Edit() {
         fixedFormData.append(key, value);
       }
     });
-    const response = await api.saveFish(fixedFormData);
-    navigate(`/fish/${response._id}`);
+    try {
+      const response = await api.saveFish(fixedFormData);
+      navigate(`/fish/${response._id}`);
+    }
+    catch(err) {
+      console.error(err);
+    }
   };
 
   const hideDeleteDialog = () => {

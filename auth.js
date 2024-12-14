@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const verifyToken = (req, res, next) => {
   if (req.path.includes('/api/admin/')) {
-    const token = req.headers['token'];
+    const token = req.headers['x-token'];
   
     if (!token) {
       return res.status(403).send("A token is required for authentication");
