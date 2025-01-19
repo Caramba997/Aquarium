@@ -37,6 +37,8 @@ While in production the express server also serves the react app build, for deve
 
 ## Deploy to Heroku
 
+If you want to deploy a new version, make sure to update versions in both package.json files and then run `npm run version` in the project directoy to update the versions displayed in the frontend.
+
 This project is hosted as an Heroku app. To update the version there, make sure to push the latest changes to the Git repository and then run `git push heroku master`. This will push the files to the remote branch on Heroku, build the app and start it.
 
 ## Available Scripts

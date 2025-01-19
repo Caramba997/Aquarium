@@ -1,0 +1,58 @@
+.Button {
+  padding: 0.5rem 2rem;
+  border-radius: var(--border-radius);
+  color: var(--button-color);
+  background-color: var(--button-background-color);
+  position: relative;
+}
+
+.Button--primary {
+  --button-background-color: var(--color-primary);
+  --button-color: var(--color-text-light);
+}
+
+.Button--secondary {
+  --button-background-color: var(--color-secondary);
+  --button-color: var(--color-text-light);
+}
+
+.Button--tertiary {
+  --button-background-color: transparent;
+  --button-color: var(--color-text-primary);
+}
+
+.Button--critical {
+  --button-background-color: var(--color-background-error);
+  --button-color: var(--color-text-light);
+}
+
+.Button--s {
+  padding: 0.25rem 1rem;
+}
+
+.Button.is-loading .Button--Content {
+  visibility: hidden;
+}
+
+.Button.is-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  border: 2px solid var(--button-color);
+  border-bottom-color: transparent;
+  animation: button-spinner 1s linear infinite;
+}
+
+@keyframes button-spinner {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

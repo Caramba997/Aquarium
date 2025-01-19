@@ -7,6 +7,7 @@ import './Fish.css';
 import PlaceholderImage from '../images/fish_placeholder.png';
 import { ReactComponent as FishIcon } from '../icons/fish.svg';
 import { ReactComponent as HouseIcon } from '../icons/house.svg';
+import { ReactComponent as AsteriskIcon } from '../icons/asterisk.svg';
 import { ReactComponent as CrossIcon } from '../icons/cross.svg';
 import { ReactComponent as PencilIcon } from '../icons/pencil.svg';
 import { ReactComponent as StarsIcon } from '../icons/stars.svg';
@@ -44,6 +45,31 @@ function Home() {
     const year = d.getFullYear();
     return `${day}.${month}.${year}`;
   }
+
+  const getAge = (date) => {
+    const d = new Date(date);
+    const now = Date.now();
+    const age = now - d.getTime();
+    if (age / 1000 / 60 / 60 / 24 < 1) {
+      return '1 Tag';
+    }
+    else if (age / 1000 / 60 / 60 / 24 / 7 < 1) {
+      const days = Math.floor(age / 1000 / 60 / 60 / 24);
+      return `${days} ${days === 1 ? 'Tag' : 'Tage'}`;
+    }
+    else if (age / 1000 / 60 / 60 / 24 / 30 < 1) {
+      const weeks = Math.floor(age / 1000 / 60 / 60 / 24 / 7);
+      return `${weeks} ${weeks === 1 ? 'Woche' : 'Wochen'}`;
+    }
+    else if (age / 1000 / 60 / 60 / 24 / 30 / 12 < 1) {
+      const months = Math.floor(age / 1000 / 60 / 60 / 24 / 30);
+      return `${months} ${months === 1 ? 'Monat' : 'Monate'}`;
+    }
+    else {
+      const years = Math.floor(age / 1000 / 60 / 60 / 24 / 365);
+      return `${years} ${years === 1 ? 'Jahr' : 'Jahre'}`;
+    }
+  };
 
   const deathHtml = fish.date_death ? (
     <div className="Fish__PropertyRow">
@@ -117,6 +143,15 @@ function Home() {
           <div className="Fish__PropertyValue">
             <HouseIcon className="Fish__Icon" />
             <div>{formatDate(fish.date_since)}</div>
+          </div>
+        </div>
+        <div className="Fish__PropertyRow">
+          <div className="Fish__PropertyLabel">
+            Geboren
+          </div>
+          <div className="Fish__PropertyValue">
+            <AsteriskIcon className="Fish__Icon" />
+            <div>{fish.born_here ? formatDate(fish.date_since) + ' (' + getAge(fish.date_since) + ' alt)' : '?'}</div>
           </div>
         </div>
         { deathHtml }

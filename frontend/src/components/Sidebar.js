@@ -64,6 +64,9 @@ function Sidebar() {
           <Link to={{ pathname: '/stats' }} className="Navigation__Item" onClick={close}>
             Statistiken
           </Link>
+          <Link to={{ pathname: '/about' }} className="Navigation__Item" onClick={close}>
+            Über
+          </Link>
         </div>
       </div>
     </div>

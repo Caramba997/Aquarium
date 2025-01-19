@@ -6,6 +6,7 @@ const itemSchema = new mongoose.Schema({
   species: String,
   date_since: Date,
   date_death: Date,
+  born_here: Boolean,
   sex: String,
   colors: [String],
   characteristics: [String],

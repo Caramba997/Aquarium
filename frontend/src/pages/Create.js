@@ -5,11 +5,13 @@ import Events from '../events.js';
 import './Create.css';
 import { ReactComponent as MaleIcon } from '../icons/male.svg';
 import { ReactComponent as FemaleIcon } from '../icons/female.svg';
+import Button from '../components/Button.js';
 
 function Home() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [dateSince, setDateSince] = useState(new Date().toISOString().split('T')[0]);
+  const [bornHere, setBornHere] = useState(false);
   const [species, setSpecies] = useState('');
   const [colors, setColors] = useState('');
   const [characteristics, setCharacteristics] = useState('');
@@ -45,6 +47,10 @@ function Home() {
 
   const handleDateSinceChange = (e) => {
     setDateSince(e.target.value);
+  };
+
+  const handleBornHereChange = (e) => {
+    setBornHere(e.target.checked);
   };
 
   const handleSpeciesSelect = (e) => {
@@ -94,12 +100,17 @@ function Home() {
     setSaveIsLoading(true);
     const formData = new FormData(form);
     const fixedFormData = new FormData();
-    formData.forEach((value, key) => {
-      if (key === 'image') {
-        if (!value.size) return;
-        fixedFormData.append(key, value, `${handleize(formData.get('name'))}_${Date.now()}.${value.name.split('.').pop()}`);
+    Array.from(form.elements).forEach(element => {
+      const { name, type, checked, value, files } = element;
+      if (!name) return;
+      if (type === 'checkbox') {
+        fixedFormData.append(name, checked);
+      } else if (type === 'file') {
+        if (files.length > 0) {
+          fixedFormData.append(name, files[0], `${handleize(formData.get('name'))}_${Date.now()}.${files[0].name.split('.').pop()}`);
+        }
       } else {
-        fixedFormData.append(key, value);
+        fixedFormData.append(name, value);
       }
     });
     try {
@@ -169,6 +180,10 @@ function Home() {
           <input className="Create__InputDate" type="date" name="date_since" value={dateSince} onChange={handleDateSinceChange} required></input>
         </div>
         <div className="Create__InputRow">
+          <label className="Create__InputLabel" htmlFor="born_here">Im Aquarium geboren?</label>
+          <input className="Create__InputCheckbox" type="checkbox" name="born_here" value={bornHere} onChange={handleBornHereChange}></input>
+        </div>
+        <div className="Create__InputRow">
           <label className="Create__InputLabel" htmlFor="colors">Eigenschaften (optional)</label>
           <input className="Create__InputDate" type="string" name="characteristics" value={characteristics} onChange={handleCharacteristicsChange}></input>
         </div>
@@ -178,17 +193,17 @@ function Home() {
         </div>
         <div className="Create__InputRow">
           <label className="Create__InputLabel" htmlFor="image">Bild (optional)</label>
-          <div>
+          <div className={`Create__FileInputWrapper ${image ? 'Create__FileInputWrapper--hasImage' : ''}`}>
+            { image ? (<img className="Create__Image" src={ image } alt="Bild des Tieres" />) : null }
             <label className="Create__FileInputLabel">
-              Bild auswählen
+              { image ? 'Bild ändern' : 'Bild auswählen' }
               <input name="image" type="file" onChange={showImage} accept="image/*" />
             </label>
-            { image ? (<img className="Create__Image" src={ image } alt="Bild des Tieres" />) : null }
           </div>
         </div>
       </form>
       <div className="Create__ButtonRow">
-        <button type="button" className="Create__Button" onClick={save}>Speichern</button>
+        <Button type="primary" isLoading={saveIsLoading} onClick={save}>Speichern</Button>
       </div>
     </div>
   );

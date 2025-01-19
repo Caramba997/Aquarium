@@ -7,6 +7,7 @@ import './Edit.css';
 import './Create.css';
 import { ReactComponent as MaleIcon } from '../icons/male.svg';
 import { ReactComponent as FemaleIcon } from '../icons/female.svg';
+import Button from '../components/Button.js';
 
 function Edit() {
   const { id } = useParams();
@@ -47,6 +48,9 @@ function Edit() {
   const handlePropertyChange = (e) => {
     if (['colors', 'characteristics'].includes(e.target.name)) {
       setFish({ ...fish, [e.target.name]: e.target.value.split(',').map(entry => entry.trim().toLowerCase()) });
+    }
+    else if (e.target.type === 'checkbox') {
+      setFish({ ...fish, [e.target.name]: e.target.checked });
     }
     else {
       setFish({ ...fish, [e.target.name]: e.target.value });
@@ -109,16 +113,21 @@ function Edit() {
     const formData = new FormData(form);
     const fixedFormData = new FormData();
     fixedFormData.append('id', id);
-    formData.forEach((value, key) => {
-      if (key === 'image') {
-        if (!value.size) return;
-        fixedFormData.append(key, value, `${handleize(formData.get('name'))}_${Date.now()}.${value.name.split('.').pop()}`);
-      }
-      else {
-        fixedFormData.append(key, value);
+    Array.from(form.elements).forEach(element => {
+      const { name, type, checked, value, files } = element;
+      if (!name) return;
+      if (type === 'checkbox') {
+        fixedFormData.append(name, checked);
+      } else if (type === 'file') {
+        if (files.length > 0) {
+          fixedFormData.append(name, files[0], `${handleize(formData.get('name'))}_${Date.now()}.${files[0].name.split('.').pop()}`);
+        }
+      } else {
+        fixedFormData.append(name, value);
       }
     });
     try {
+      console.log(fixedFormData.get('born_here'));
       const response = await api.saveFish(fixedFormData);
       navigate(`/fish/${response._id}`);
     }
@@ -147,8 +156,8 @@ function Edit() {
     <div className="Edit__Dialog" aria-hidden={deleteDialogVisible ? 'false' : 'true'}>
       <div>Wirklich löschen?</div>
       <div className="Create__ButtonRow Edit__ButtonRow--delete">
-        <button type="button" className="Create__Button Edit__Button--delete" onClick={deleteFish}>Ja</button>
-        <button type="button" className="Create__Button" onClick={hideDeleteDialog}>Nein</button>
+        <Button type="critical" onClick={deleteFish}>Ja</Button>
+        <Button type="primary" onClick={hideDeleteDialog}>Nein</Button>
       </div>
     </div>
   )
@@ -197,6 +206,10 @@ function Edit() {
           <input className="Create__InputDate" type="date" name="date_since" value={fish.date_since} onChange={handlePropertyChange} required></input>
         </div>
         <div className="Create__InputRow">
+          <label className="Create__InputLabel" htmlFor="born_here">Im Aquarium geboren?</label>
+          <input className="Create__InputCheckbox" type="checkbox" name="born_here" checked={fish.born_here ? true : false} onChange={handlePropertyChange}></input>
+        </div>
+        <div className="Create__InputRow">
           <label className="Create__InputLabel" htmlFor="date_death">Gestorben am</label>
           <input className="Create__InputDate" type="date" name="date_death" value={fish.date_death} onChange={handlePropertyChange}></input>
         </div>
@@ -210,20 +223,20 @@ function Edit() {
         </div>
         <div className="Create__InputRow">
           <label className="Create__InputLabel" htmlFor="image">Bild (optional)</label>
-          <div>
+          <div className={`Create__FileInputWrapper ${image || fish.image ? 'Create__FileInputWrapper--hasImage' : ''}`}>
+            { image ? (<img className="Create__Image" src={image} alt="Bild des Tieres" />) : fish.image ? (<img className="Create__Image" src={ `${process.env.REACT_APP_CLOUDFRONT_URL}/${fish.image.name}` } alt="Bild des Tieres" />) : null }
             <label className="Create__FileInputLabel">
-              Bild auswählen
+              { image || fish.image ? 'Bild ändern' : 'Bild auswählen' }
               <input name="image" type="file" onChange={showImage} accept="image/*" />
             </label>
-            { image ? (<img className="Create__Image" src={image} alt="Bild des Tieres" />) : fish.image ? (<img className="Create__Image" src={ `${process.env.REACT_APP_CLOUDFRONT_URL}/${fish.image.name}` } alt="Bild des Tieres" />) : null }
           </div>
         </div>
       </form>
       <div className="Create__ButtonRow">
-        <button type="button" className="Create__Button" onClick={save}>Speichern</button>
+        <Button type="primary" onClick={save}>Speichern</Button>
       </div>
       <div className="Create__ButtonRow Edit__ButtonRow--delete">
-        <button type="button" className="Create__Button Edit__Button--delete" onClick={showDeleteDialog}>Löschen</button>
+        <Button type="critical" onClick={showDeleteDialog}>Löschen</Button>
       </div>
       { deleteDialog }
     </div>

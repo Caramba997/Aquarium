@@ -1,0 +1,45 @@
+.About {
+  max-width: 480px;
+  margin: auto;
+}
+
+.About__Section {
+  padding: 1.5rem 0;
+  color: var(--color-text-secondary);
+}
+
+.About__Section + .About__Section {
+  border-top: 1px solid var(--color-border);
+}
+
+.About h2 {
+  font-weight: 600;
+  font-size: var(--text-l);
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.About__Value {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.About__Logos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.About__Logo {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.About__T {
+  font-size: var(--text-l);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-text-primary);
+  text-shadow: 2px 2px 4px var(--color-error);
+}

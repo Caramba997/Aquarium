@@ -10,6 +10,7 @@ import Events from "./events.js";
 import { useContext } from 'react';
 import { UserContext } from './context.js';
 import LoadingContainer from "./components/LoadingContainer.js";
+import { VERSION } from "./version.js";
 
 const Layout = () => {
 
@@ -78,7 +79,7 @@ const Layout = () => {
       </LoadingContainer>
 
       <footer id="Footer">
-        <div>© Finn Carstensen 2024</div>
+        <div>© Finn Carstensen {new Date(VERSION.date).getFullYear()}</div>
       </footer>
     </>
   )

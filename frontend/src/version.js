@@ -1,0 +1,1 @@
+export const VERSION = {"backend":"1.2.2","frontend":"1.5.0","build":7,"date":"2025-01-19T22:25:21.053Z"};

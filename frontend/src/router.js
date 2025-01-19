@@ -7,6 +7,7 @@ import Edit from './pages/Edit.js';
 import Stats from './pages/Stats.js';
 import Login from './pages/Login.js';
 import Account from './pages/Account.js';
+import About from './pages/About.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute.js';
 
@@ -24,6 +25,7 @@ const AquariumRouter = () => {
           <Route path="/stats" element={<Stats />} />
           <Route path="/login" element={<Login />} />
           <Route path="/account" element={<PrivateRoute><Account /></PrivateRoute>} />
+          <Route path="/about" element={<About />} />
         </Route>
       </Routes>
     </BrowserRouter>
